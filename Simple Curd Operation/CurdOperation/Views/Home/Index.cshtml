@@ -1,0 +1,56 @@
+﻿@model CurdOperation.Models.StudentModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<h1>Student Details</h1>
+<br />
+@{
+    @if (TempData["SaveStatus"] != null)
+    {
+        int status = Convert.ToInt32(TempData["SaveStatus"]);
+
+        if (status == 1)
+        {
+            <span class="alert alert-success">Data Added Sucessfully</span>
+        }
+
+        else
+        {
+            <span class="alert alert-danger">Erro!!! while adding data</span>     
+        }
+    }
+}
+<a href="/Home/Save">Add New Student</a>
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Subject</td>
+            <td>Standrd</td>
+        </tr>
+    </thead>
+    @if (Model.StudentsList.Count > 0)
+    {
+        foreach (var student in Model.StudentsList)
+        {
+          <tr>
+              <td>@student.Id</td>
+              <td>@student.Name</td>
+              <td>@student.Subject</td>
+              <td>@student.Standard</td>
+              <td>
+                  <a href="/Home/Update/?Id=@student.Id">Update</a>&nbsp;|&nbsp;
+                  <a href="/Home/Delete/?Id=@student.Id">Delete</a>
+              </td>
+            </tr>
+        }
+    }
+    else
+    {
+      <tr>No data found</tr>    
+    }
+</table>
